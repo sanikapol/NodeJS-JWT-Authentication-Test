@@ -145,9 +145,17 @@
         }
         //onLoad();
 
-        window.onpopstate = function(event){
-            window.location.href = "/";
-        }
+        window.addEventListener('popstate', function(e) {
+            var pg = e.state;
+
+            if (pg == null) {
+                document.querySelector("h1.row").innerHTML = "Login";
+                document.querySelector("main").innerHTML = "<div class='row'><label for='username'>Username</label> <input type='text' name='username' id='username' />  </div>   <div class='row'>  <label for='password'>Password</label>   <input type='password' name='password' id='password' />    </div>    <div>  <button onclick='login()'>Login</button>    <button onclick='getDasboard()'>Get Dashboard</button>   <button onclick='getSettings()'>Settings</button>   </div>";
+            } else {
+                document.querySelector("h1.row").innerHTML = pg;
+                document.querySelector("main").innerHTML = res.data.myContent;
+            }
+        });
 
 
     </script>
